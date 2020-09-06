@@ -1,5 +1,6 @@
 const path = require('path');
 const autoprefixer = require('autoprefixer');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -13,8 +14,12 @@ for (let compressOption in compress) {
 compress.unused = true;
 
 module.exports = {
-	devtool: 'cheap-module-source-map',
-	entry: './src/index.js',
+	devtool:
+		process.env.NODE_ENV !== 'production'
+			? 'cheap-module-source-map'
+			: 'source-map',
+
+	entry: ['./src/index.js'].filter(Boolean),
 	output: {
 		path: path.resolve(process.cwd(), 'build/static'),
 		filename: 'bundle.js',
@@ -76,7 +81,9 @@ module.exports = {
 			filename: 'styles.css',
 			chunkFilename: '[name].[contenthash:8].chunk.css'
 		}),
-		new WebpackMd5Hash()
+		new WebpackMd5Hash(),
+		process.env.NODE_ENV !== 'production' &&
+			new webpack.HotModuleReplacementPlugin()
 	],
 	optimization: {
 		splitChunks: {
