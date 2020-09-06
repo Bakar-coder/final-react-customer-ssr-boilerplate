@@ -42,7 +42,7 @@ module.exports = {
 				use: [
 					{
 						loader: 'babel-loader',
-						options: { compact: true }
+						options: { compact: process.env.NODE_ENV !== 'production' }
 					},
 					{ loader: 'prettier-loader' }
 				],
