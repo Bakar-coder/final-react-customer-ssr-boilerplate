@@ -33,14 +33,17 @@ module.exports = {
 		watchContentBase: true
 	},
 	resolve: {
-		extensions: ['.js', '.jsx', '.css', '.scss']
+		extensions: ['*', '.js', '.jsx']
 	},
 	module: {
 		rules: [
 			{
-				test: /\.jsx?$/,
+				test: /\.(js|mjs|jsx|ts|tsx)$/,
 				use: [
-					{ loader: 'babel-loader', options: { compact: true } },
+					{
+						loader: 'babel-loader',
+						options: { compact: true }
+					},
 					{ loader: 'prettier-loader' }
 				],
 				exclude: /node_modules/
@@ -71,7 +74,14 @@ module.exports = {
 				loader: 'url-loader',
 				options: {
 					limit: 10000,
-					name: 'images/[name].[hash:8].[ext]'
+					name: 'media/[name].[hash:8].[ext]'
+				}
+			},
+			{
+				loader: require.resolve('file-loader'),
+				exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/, /\.s?css$/],
+				options: {
+					name: 'media/[name].[hash:8].[ext]'
 				}
 			}
 		]
