@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader/root';
 import React, { Fragment } from 'react';
 import { renderRoutes } from 'react-router-config';
 import Helmet from 'react-helmet';
@@ -14,4 +15,4 @@ const App = ({ route }) => {
 		</Fragment>
 	);
 };
-export default { component: App };
+export default { component: hot(App) };
