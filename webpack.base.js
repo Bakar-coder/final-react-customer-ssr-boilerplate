@@ -27,7 +27,7 @@ module.exports = {
 		publicPath: ''
 	},
 	devServer: {
-		contentBase: path.resolve(process.cwd(), 'build/static'),
+		contentBase: path.resolve(process.cwd(), 'src'),
 		port: 3001,
 		hot: process.env.NODE_ENV !== 'production',
 		watchContentBase: true
